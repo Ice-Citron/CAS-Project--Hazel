@@ -1,5 +1,7 @@
 #include "Application.h"
-#include <iostream>
+
+#include "Hazel/Events/ApplicationEvent.h"
+#include "Hazel/Log.h"
 
 namespace Hazel {
 
@@ -8,7 +10,15 @@ namespace Hazel {
 
 	void Application::Run() {
 		
-		std::cout << "Hello world" << std::endl;
-	}
+		WindowResizeEvent e(1280, 720);
+		
+		if (e.IsInCategory(EventCategoryApplication)) {
+			HZ_TRACE(e);
+		}
+		if (e.IsInCategory(EventCategoryInput)) {
+			HZ_TRACE(e);
+		}
 
+		while (true);
+	}
 }
