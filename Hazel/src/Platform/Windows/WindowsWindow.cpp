@@ -1,37 +1,38 @@
 #include "hzpch.h"
 #include "WindowsWindow.h"
 
-
 namespace Hazel {
 
 	static bool s_GLFWInitialized = false;
 
-	Window* Window::Create(const WindowProps& props) {
+	Window* Window::Create(const WindowProps& props)
+	{
 		return new WindowsWindow(props);
 	}
 
-	WindowsWindow::WindowsWindow(const WindowProps& props) {
+	WindowsWindow::WindowsWindow(const WindowProps& props)
+	{
 		Init(props);
 	}
 
-	WindowsWindow::~WindowsWindow() {
+	WindowsWindow::~WindowsWindow()
+	{
 		Shutdown();
 	}
 
-	void WindowsWindow::Init(const WindowProps& props) {
-		
+	void WindowsWindow::Init(const WindowProps& props)
+	{
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
 		HZ_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
-		if (!s_GLFWInitialized) {
-			
+		if (!s_GLFWInitialized)
+		{
 			// TODO: glfwTerminate on system shutdown
-
-			int success = glfwInit(); //declared separately, as HZ_CORE_ASSERT won't exist when switched to DISTRIBUTION build
-			HZ_CORE_ASSERT(success, "Could not initialise GLFW!");
+			int success = glfwInit();
+			HZ_CORE_ASSERT(success, "Could not intialize GLFW!");
 
 			s_GLFWInitialized = true;
 		}
@@ -42,28 +43,29 @@ namespace Hazel {
 		SetVSync(true);
 	}
 
-	void WindowsWindow::Shutdown() {
+	void WindowsWindow::Shutdown()
+	{
 		glfwDestroyWindow(m_Window);
 	}
 
-	void WindowsWindow::OnUpdate() {
-
+	void WindowsWindow::OnUpdate()
+	{
 		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
 
-	void WindowsWindow::SetVSync(bool enabled) {
-
-		if (enabled) {
+	void WindowsWindow::SetVSync(bool enabled)
+	{
+		if (enabled)
 			glfwSwapInterval(1);
-		}
-		else {
+		else
 			glfwSwapInterval(0);
-		}
+
 		m_Data.VSync = enabled;
 	}
 
-	bool WindowsWindow::IsVSync() const {
+	bool WindowsWindow::IsVSync() const
+	{
 		return m_Data.VSync;
 	}
 
