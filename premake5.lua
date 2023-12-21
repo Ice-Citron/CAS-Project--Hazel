@@ -26,21 +26,21 @@ project "Hazel"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files
-	{
+	pchheader "hzpch.h"
+	pchsource "%{prj.name}/src/hzpch.cpp"
+
+	files {
 		"%{prj.name}/src/**.h", 
 		"%{prj.name}/src/**.cpp"
 	}
 
-	includedirs
-	{
+	includedirs {
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}"
 	}
 
-	links 
-	{ 
+	links { 
 		"GLFW",
 		"opengl32.lib"
 	}
@@ -50,14 +50,12 @@ project "Hazel"
 		staticruntime "On"
 		systemversion "latest"
 
-		defines
-		{
+		defines {
 			"HZ_PLATFORM_WINDOWS",
 			"HZ_BUILD_DLL"
 		}
 
-		postbuildcommands
-		{
+		postbuildcommands {
 			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
 		}
 	
@@ -73,6 +71,7 @@ project "Hazel"
 		defines "HZ_DIST"
 		optimize "On"
 
+
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
@@ -81,20 +80,17 @@ project "Sandbox"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files
-	{
+	files {
 		"%{prj.name}/src/**.h", 
 		"%{prj.name}/src/**.cpp"
 	}
 
-	includedirs
-	{
+	includedirs {
 		"Hazel/vendor/spdlog/include",
 		"Hazel/src"
 	}
 
-	links
-	{
+	links {
 		"Hazel"
 	}
 
