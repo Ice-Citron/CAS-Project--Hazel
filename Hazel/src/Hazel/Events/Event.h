@@ -1,7 +1,6 @@
 #pragma once
 
 #include "hzpch.h"
-
 #include "Hazel/Core.h"
 
 
@@ -62,8 +61,8 @@ namespace Hazel {
 		
 		template<typename T>
 		using EventFn = std::function<bool(T&)>;
-		// EventFn is a std::function instance that returns bool, and takes in T&
-		// T can be any EventType
+		// EventFn is a std::function instance that returns bool, and takes in T& as parameter
+		// T can be any EventType (check enum class)
 
 	public:
 

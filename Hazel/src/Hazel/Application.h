@@ -4,6 +4,7 @@
 #include "Events/Event.h"
 #include "Window.h"
 
+
 namespace Hazel {
 
 	class HAZEL_API Application {
@@ -21,7 +22,7 @@ namespace Hazel {
 		bool m_Running = true;
 	};
 
-	//To be defined in CLIENT
+	//To be defined in CLIENT (SandboxApp.cpp)
 	Application* CreateApplication();
 
 }

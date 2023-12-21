@@ -5,6 +5,7 @@
 
 namespace Hazel {
 
+
 	class HAZEL_API KeyEvent : public Event {
 
 	public:
@@ -14,12 +15,14 @@ namespace Hazel {
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 	protected:
+
 		//protected constructor, meaning this class can only be instantiated by its children classes
 		KeyEvent(int keyCode) 
 			: m_KeyCode(keyCode)
 		{}
 		int m_KeyCode;
 	};
+
 
 	class HAZEL_API KeyPressedEvent : public KeyEvent {
 

@@ -1,3 +1,6 @@
+-- This "premake5.lua" file, when executed in cmd prompt, will generate a .sln file, which along side with the whole repo, it allows
+-- the whole solution to essentially be used. This .sln file is optimised for the IDE Visual Studios 2022. 
+
 workspace "Hazel"
 	architecture "x64"
 	startproject "Sandbox"
@@ -12,22 +15,23 @@ workspace "Hazel"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
+-- below is essentially a Lua table, which consist of a list of include directories, and will grow to include the dependencies that Hazel needs, such as GLFW.
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
 
-include "Hazel/vendor/GLFW"
+include "Hazel/vendor/GLFW" -- Simillar to C++ style include. This includes the directory of GLFW dependency. 
 
 
 project "Hazel"
 	location "Hazel"
-	kind "SharedLib"
+	kind "SharedLib" -- Hazel is a sharedlib, meaning its a dll file
 	language "C++"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "hzpch.h"
-	pchsource "%{prj.name}/src/hzpch.cpp"
+	pchheader "hzpch.h" -- precompiled header
+	pchsource "%{prj.name}/src/hzpch.cpp" -- needed for Visual Studios 2022, tells VS 2022 which file to create the pch file from.
 
 	files {
 		"%{prj.name}/src/**.h", 
@@ -37,10 +41,10 @@ project "Hazel"
 	includedirs {
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}" -- adding the Lua table "IncludeDir" into project's "AdditionalIncludieDirectories"
 	}
 
-	links { 
+	links {
 		"GLFW",
 		"opengl32.lib"
 	}
