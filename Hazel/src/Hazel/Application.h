@@ -2,6 +2,8 @@
 
 #include "Core.h"
 #include "Events/Event.h"
+#include "Hazel/Events/ApplicationEvent.h"
+
 #include "Window.h"
 
 
@@ -13,8 +15,13 @@ namespace Hazel {
 
 		Application();
 		virtual ~Application();
-
+		
 		void Run();
+		void OnEvent(Event& e);
+
+	private:
+
+		bool OnWindowClose(WindowCloseEvent& e);
 
 	private:
 

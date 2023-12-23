@@ -22,7 +22,7 @@ namespace Hazel {
 
 		// Window attributes (Accessors && Mutators)
 		inline void SetEventCallback(const EventCallbackFn& callback) override { 
-			// Sets the attribute in the WindowData struct
+			// Sets the "EventCallback" std::function<void(Event&)> attribute in the WindowData struct
 			m_Data.EventCallback = callback; 
 		} 
 		
@@ -45,8 +45,9 @@ namespace Hazel {
 			unsigned int Width, Height;
 			bool VSync;
 
+			// using EventCallbackFn = std::function<void(Event&)>; -- declared in superclass "Window"
 			// Callbacks are typically used to handle events such as keyPresses, windowResize, Mousemovement, etc.
-			EventCallbackFn EventCallback;
+			EventCallbackFn EventCallback;		// This holds "void Application::OnEvent(Event& e);" from the Application class for now
 		
 		};
 

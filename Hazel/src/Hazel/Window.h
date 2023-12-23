@@ -14,9 +14,7 @@ namespace Hazel {
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProps(const std::string& title = "Hazel Engine",
-			unsigned int width = 1280,
-			unsigned int height = 720)
+		WindowProps(const std::string& title = "Hazel Engine", unsigned int width = 1280, unsigned int height = 720)
 			: Title(title), Width(width), Height(height)
 		{}
 	};
@@ -41,7 +39,17 @@ namespace Hazel {
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
-		static Window* Create(const WindowProps& props = WindowProps()); // will be implemented for each specific platforms, in the directory "/platform/~~~"
+		// will be implemented for each specific platforms, in the directory "/platform/~~~"
+		// "props" have a default parameter, automatically initialises with "WindowProps" struct
+		static Window* Create(const WindowProps& props = WindowProps()); 
 	};
 
+	// Here's a simplified flow of how GLFW handles a window resize event:
+
+	// 1. Operating System:		The user resizes the window.
+	// 2. GLFW:					Detects the resize event in its event loop and adds it to the event queue.
+	// 3. Application Loop:		Your application calls glfwPollEvents() during its loop.
+	// 4. GLFW:					Processes the event queue and sees the resize event.
+	// 5. Callback Invocation:	GLFW calls your GLFWwindowsizefun callback function with the new size.
+	// 6. Application:			Your callback function handles the resize, adjusting the viewport and redrawing the scene if necessary.
 }
