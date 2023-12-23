@@ -39,9 +39,9 @@ namespace Hazel {
 	//Pretty much an interface, which ass specfic event types will inherit. 
 	class HAZEL_API Event {
 
-		friend class EventDispatcher;
-
 	public:
+
+		bool Handled = false;
 
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
@@ -53,10 +53,6 @@ namespace Hazel {
 		inline bool IsInCategory(EventCategory category) {
 			return GetCategoryFlags() & category;
 		}
-
-	protected:
-
-		bool m_Handled = false;
 	};
 
 
@@ -87,7 +83,7 @@ namespace Hazel {
 				// if the event that you are trying to dispatch matches with 
 				// the parameter type (T&) of the std::Function
 				// the code will then call the EventFn<T> func function, with the event passed as parameter
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				m_Event.Handled = func(*(T*)&m_Event);
 				return true;
 			}
 			return false;
