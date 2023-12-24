@@ -6,3 +6,6 @@
 	path = Hazel/vendor/GLFW
 	url = https://github.com/Ice-Citron/glfw.git
 	branch = latest
+[submodule "Hazel/vendor/imgui"]
+	path = Hazel/vendor/imgui
+	url = https://github.com/Ice-Citron/imgui

@@ -19,9 +19,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
+IncludeDir["ImGui"] = "Hazel/vendor/imgui"
 
 include "Hazel/vendor/GLFW" -- Simillar to C++ style include. This includes the directory of GLFW dependency. 
 include "Hazel/vendor/Glad"
+include "Hazel/vendor/imgui"
 
 
 project "Hazel"
@@ -44,12 +46,14 @@ project "Hazel"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}", -- adding the Lua table "IncludeDir" into project's "AdditionalIncludieDirectories"
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links {
 		"GLFW",
 		"GLAD",
+		"ImGui",
 		"opengl32.lib"
 	}
 

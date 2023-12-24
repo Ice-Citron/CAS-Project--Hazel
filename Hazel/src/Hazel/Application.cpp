@@ -23,11 +23,16 @@ namespace Hazel {
 */
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1) 
 
+
+	Application* Application::s_Instance = nullptr;
+
 	//In C++, the superclass constructor is invoked. Whenever a subclass constructor is invoked during an instantiation.
 	Application::Application() {
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
+		s_Instance = this;
 
+		m_Window = std::unique_ptr<Window>(Window::Create());
 		// SetEventCallback() sets the std::function<void(Event&)> attribute that m_Data.EventCallback is holding.
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent)); 
 	}
@@ -38,10 +43,12 @@ namespace Hazel {
 	// LayerStack Integration : "Application" now includes a LayerStack. It forwards events to layers and calls their update methods.
 	void Application::PushLayer(Layer* layer) {
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer) {
 		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 
@@ -66,6 +73,7 @@ namespace Hazel {
 
 	}
 
+	// Called from main function, where the main processes occurs during run-time
 	void Application::Run() {
 		
 		while (m_Running) {
