@@ -5,6 +5,7 @@
 #include "Hazel/Events/MouseEvent.h"
 #include "Hazel/Events/KeyEvent.h"
 
+#include <glad/glad.h>
 
 namespace Hazel {
 
@@ -64,6 +65,23 @@ namespace Hazel {
 		-- it wouldn't have access to the resources it needs to perform rendering.
 		*/
 		glfwMakeContextCurrent(m_Window); 
+
+
+		// --------GLAD initialisation-------- 
+		/*
+		-- "gladLoadGLLoader" initialises GLAD, the OpenGL loader library. This is necessary for accessing modern OpenGL functions. it is a 
+		   function provided by GLAD to load OpenGL function pointers.
+		-- It requires a function pointer as an argument, which is responsible for returning the address of OpenGL functions.
+		-- 'glfwGetProcAddress' is a GLFW function that returns the address of an OpenGL function given its name.
+		-- However, in this context, we are not calling 'glfwGetProcAddress' directly. Instead, we pass its pointer to 'gladLoadGLLoader'.
+		-- This allows GLAD to use GLFW's mechanism to retrieve the addresses of OpenGL functions dynamically at runtime.
+		-- The function pointers are essential for OpenGL to function correctly as they provide access to modern OpenGL features.
+
+		** Long story short, this now allows GLFW to directly call openGL functions through GLAD. 
+		*/
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		HZ_CORE_ASSERT(status, "Failed to initialise Glad!");
+		
 
 		// The purpose of UserPointer: allows you to associate a pointer to any user-defined data with the window. This can be a pointer to a 
 		// class, a structure, or any other type of data you want to associate with that window.
@@ -226,3 +244,12 @@ namespace Hazel {
 	}
 
 }
+
+// Difference between GLFW and GLAD
+/*
+-- GLAD vs. GLFW: GLAD is a loader for OpenGL functions, allowing access to modern OpenGL features. GLFW, on the other hand, is used for creating 
+   windows, OpenGL contexts, and managing inputs.
+
+-- Complementary Usage: In modern OpenGL development, both GLAD and GLFW are used together but for different aspects of the graphics pipeline. 
+   GLAD handles the loading of OpenGL functions, while GLFW deals with window and input management.
+*/

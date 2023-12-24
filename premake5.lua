@@ -18,8 +18,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- below is essentially a Lua table, which consist of a list of include directories, and will grow to include the dependencies that Hazel needs, such as GLFW.
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
 
 include "Hazel/vendor/GLFW" -- Simillar to C++ style include. This includes the directory of GLFW dependency. 
+include "Hazel/vendor/Glad"
 
 
 project "Hazel"
@@ -41,11 +43,13 @@ project "Hazel"
 	includedirs {
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}" -- adding the Lua table "IncludeDir" into project's "AdditionalIncludieDirectories"
+		"%{IncludeDir.GLFW}", -- adding the Lua table "IncludeDir" into project's "AdditionalIncludieDirectories"
+		"%{IncludeDir.Glad}"
 	}
 
 	links {
 		"GLFW",
+		"GLAD",
 		"opengl32.lib"
 	}
 
@@ -56,7 +60,8 @@ project "Hazel"
 
 		defines {
 			"HZ_PLATFORM_WINDOWS",
-			"HZ_BUILD_DLL"
+			"HZ_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands {
