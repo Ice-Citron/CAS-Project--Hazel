@@ -47,7 +47,7 @@ namespace Hazel {
 
 			// using EventCallbackFn = std::function<void(Event&)>; -- declared in superclass "Window"
 			// Callbacks are typically used to handle events such as keyPresses, windowResize, Mousemovement, etc.
-			EventCallbackFn EventCallback;		// This holds "void Application::OnEvent(Event& e);" from the Application class for now
+			EventCallbackFn EventCallback;		// This holds "void Application::OnEvent(Event& e);" from the Application class, for example.
 		
 		};
 

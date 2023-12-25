@@ -28,11 +28,15 @@ namespace Hazel {
 
 	public:
 
-		KeyPressedEvent(int keyCode, int repeatCount)
-			: KeyEvent(keyCode), m_RepeatCount(repeatCount) //initialising superclass
+		KeyPressedEvent(int keyCode, int repeatCount, int* window)
+			: KeyEvent(keyCode), m_RepeatCount(repeatCount), m_GLFWwindow(window) //initialising superclass
 		{}
 
 		inline int GetRepeatCount() const { return m_RepeatCount; }
+		
+		// Added myself, getter method for m_GLFWwindow
+		// Have been casted to int, so that KeyEvent.h don't need to import glfw3.h
+		inline int* GetGLFWwindow() const { return m_GLFWwindow; } 
 
 		std::string ToString() const override {
 			std::stringstream ss;
@@ -44,14 +48,19 @@ namespace Hazel {
 		EVENT_CLASS_TYPE(KeyPressed)
 
 	private:
+
 		int m_RepeatCount;
+		// This has been added myself, contrary to Cherno's version, because there's no way to get the modifier key's current 
+		// state without using glfwGetKey() due to newer imGui version, and this method required pointer to the GLFWwindow object
+		int* m_GLFWwindow;
 	};
 
 
-	class HAZEL_API keyReleasedEvent : public KeyEvent {
+	class HAZEL_API KeyReleasedEvent : public KeyEvent {
 
 	public: 
-		keyReleasedEvent(int keyCode)
+
+		KeyReleasedEvent(int keyCode)
 			: KeyEvent(keyCode) //initialising superclass
 		{}
 
@@ -65,4 +74,21 @@ namespace Hazel {
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
+	class HAZEL_API KeyTypedEvent : public KeyEvent {
+
+	public:
+
+		KeyTypedEvent(int keycode)
+			: KeyEvent(keycode)
+		{}
+
+		std::string ToString() const override {
+
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << m_KeyCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
+	};
 }

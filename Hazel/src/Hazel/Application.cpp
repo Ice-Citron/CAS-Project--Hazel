@@ -18,7 +18,7 @@ namespace Hazel {
    a free function or static method. However, by using std::bind, you can create a callable object that effectively "wraps" the member function 
    call, including the object instance (this) it should be called on. (basically linking the method to the object instance, else uncallable)
 
---  When the event occurs, GLFW calls a predefined callback function.Inside this callback, you retrieve the bound callable from the user pointer 
+--  When the event occurs, GLFW calls a predefined callback function. Inside this callback, you retrieve the bound callable from the user pointer 
    and call it with the event.The EventCallback function then invokes OnEvent on the Application instance.
 */
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1) 

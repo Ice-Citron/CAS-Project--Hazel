@@ -92,6 +92,11 @@ namespace Hazel {
 		// ---------------------------------------------------------------------------------------------------
 		// Setting GLFW Callbacks 
 		// callbacks for various window events are set using lambda functions that capture the WindowData context and create the appropriate event, invoking EventCallback.
+		/*
+		-- m_Window is passed into glfwSetCharCallback(as an example) as which handle will it set this CharCallback to. 
+		-- This lambda function, or cbfun, will then be a pointer that is set to the m_Window class. (note: m_Window is a GLFWwindow object).
+		-- So from now on, whenever a specific event is detected, this lambda function will be called by the GLFWwindow object. 
+		*/
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
 			
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -117,21 +122,29 @@ namespace Hazel {
 
 				case (GLFW_PRESS): {
 				
-					KeyPressedEvent event(key, 0);
+					KeyPressedEvent event(key, 0, (int*)window); // these have been casted to int, so that KeyEvent.h don't need to import glfw3.h
 					data.EventCallback(event);
 					break;
 				}
 				case (GLFW_RELEASE): {
-					keyReleasedEvent event(key);
+					KeyReleasedEvent event(key);
 					data.EventCallback(event);
 					break;
 				}
 				case (GLFW_REPEAT): {
-					KeyPressedEvent event(key, 1);
+					KeyPressedEvent event(key, 1, (int*)window); // these have been casted to int, so that KeyEvent.h don't need to import glfw3.h
 					data.EventCallback(event);
 					break;
 				}
 			}
+		});
+
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode) {
+			
+			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+			KeyTypedEvent event(keycode);
+			data.EventCallback(event);
 		});
 
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods) {
@@ -181,6 +194,8 @@ namespace Hazel {
 		// Event Queue:			When an event occurs, it gets placed into an event queue.
 		// Event Processing:	On each iteration of your application's main loop, you typically call a function like glfwPollEvents() or glfwWaitEvents(), 
 		//						which processes this queue, triggering the callbacks that you've set for different events.
+		// When an event is detected, the predefined callback function will be called, which calls data.EventCallback(event) -- (which is 
+		// Application::OnEvent() function) and thus leads to the EventDispatcher class, which enables the event to be called by their handle overall. 
 		glfwPollEvents(); 
 
 
