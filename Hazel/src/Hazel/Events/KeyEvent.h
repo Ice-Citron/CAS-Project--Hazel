@@ -5,7 +5,6 @@
 
 namespace Hazel {
 
-
 	class HAZEL_API KeyEvent : public Event {
 
 	public:
@@ -79,6 +78,7 @@ namespace Hazel {
 		//Macro, to declare the specific getters for keyReleasedEvent class
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
+
 
 	class HAZEL_API KeyTypedEvent : public KeyEvent {
 

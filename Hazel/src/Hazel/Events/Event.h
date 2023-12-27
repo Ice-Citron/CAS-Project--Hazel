@@ -56,7 +56,7 @@ namespace Hazel {
 	};
 
 
-	class EventDispatcher {
+	class EventDispatcher { // Not declared _declspec(), likely because it's intended to be exposed, and only used within Hazel.
 		// A utility class that's used to check if an event is of a particular type and dispatch it to a function that can handle that type. 
 		// This is achieved through the Dispatch template method, which takes a templated EventFn function. 
 		// If the event matches the template type T, the function is called with the event cast to that type.

@@ -85,8 +85,6 @@ namespace Hazel {
 			for (Layer* layer : m_LayerStack) {
 				layer->OnUpdate(); // Iterates through LayerStack to update each layers, from Bottom to Top of a stack. 
 			}
-			auto[x, y] = Input::GetMousePosition();
-			HZ_CORE_TRACE("{0}, {1}", x, y);
 
 			// This processes the event queue, and then triggers any callbacks that have been setted. b
 			m_Window->OnUpdate(); // Poll Events, swaps buffer. Ran once per frame. 

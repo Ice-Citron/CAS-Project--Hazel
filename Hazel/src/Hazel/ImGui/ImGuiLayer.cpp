@@ -23,7 +23,7 @@ namespace Hazel {
 
 	void ImGuiLayer::OnAttach() {
 
-		const char* glsl_version = "#version 130";
+		const char* glsl_version = "#version 460"; // ROG G16 has OpenGL version 4.60
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 

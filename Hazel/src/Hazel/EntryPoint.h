@@ -3,7 +3,6 @@
 
 #ifdef HZ_PLATFORM_WINDOWS
 	
-
 extern Hazel::Application* Hazel::CreateApplication(); // extern marks that a variable of function exists externally to this source file. 
 													   // This function is defined in SandboxApp.cpp
 

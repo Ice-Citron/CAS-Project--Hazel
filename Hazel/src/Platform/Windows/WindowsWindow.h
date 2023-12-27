@@ -41,6 +41,7 @@ namespace Hazel {
 		GLFWwindow* m_Window;
 
 		struct WindowData {
+
 			// Groups windows specific data nicely, this struct will be passed, instead of the entire class. 
 			// This struct is passed to the inherited Init() methods, in the invocation "glfwSetWindowUserPointer(m_Window, &m_Data);" 
 			std::string Title;
@@ -50,7 +51,6 @@ namespace Hazel {
 			// using EventCallbackFn = std::function<void(Event&)>; -- declared in superclass "Window"
 			// Callbacks are typically used to handle events such as keyPresses, windowResize, Mousemovement, etc.
 			EventCallbackFn EventCallback;		// This holds "void Application::OnEvent(Event& e);" from the Application class, for example.
-		
 		};
 
 		WindowData m_Data;

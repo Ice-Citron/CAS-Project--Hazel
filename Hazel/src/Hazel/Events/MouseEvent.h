@@ -5,10 +5,10 @@
 
 namespace Hazel {
 
-
 	class HAZEL_API MouseMovedEvent : public Event {
 
 	public:
+
 		MouseMovedEvent(float x, float y)
 			: m_MouseX(x), m_MouseY(y)
 		{}
@@ -28,6 +28,7 @@ namespace Hazel {
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 	private:
+
 		float m_MouseX, m_MouseY;
 	};
 

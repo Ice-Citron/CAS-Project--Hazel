@@ -5,8 +5,8 @@
 #include "Hazel/Core.h"
 #include "Hazel/Events/Event.h"
 
-namespace Hazel {
 
+namespace Hazel {
 
 	struct WindowProps {
 		
