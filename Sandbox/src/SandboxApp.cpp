@@ -9,10 +9,7 @@ public:
 		: Layer("Example")
 	{}
 
-	void OnUpdate() override {
-
-		
-	}
+	void OnUpdate() override {}
 
 	void OnEvent(Hazel::Event& event) override {
 		
