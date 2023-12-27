@@ -122,7 +122,7 @@ namespace Hazel {
 
 				case (GLFW_PRESS): {
 				
-					KeyPressedEvent event(key, 0, (int*)window); // these have been casted to int, so that KeyEvent.h don't need to import glfw3.h
+					KeyPressedEvent event(key, 0); 
 					data.EventCallback(event);
 					break;
 				}
@@ -132,7 +132,7 @@ namespace Hazel {
 					break;
 				}
 				case (GLFW_REPEAT): {
-					KeyPressedEvent event(key, 1, (int*)window); // these have been casted to int, so that KeyEvent.h don't need to import glfw3.h
+					KeyPressedEvent event(key, 1); 
 					data.EventCallback(event);
 					break;
 				}

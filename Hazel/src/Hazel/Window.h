@@ -39,6 +39,8 @@ namespace Hazel {
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
+		inline virtual void* GetNativeWindow() const = 0; // returns a GLFWwindow pointer for now.
+
 		// will be implemented for each specific platforms, in the directory "/platform/~~~"
 		// "props" have a default parameter, automatically initialises with "WindowProps" struct
 		static Window* Create(const WindowProps& props = WindowProps()); 

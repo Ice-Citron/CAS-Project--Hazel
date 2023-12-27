@@ -124,12 +124,12 @@ namespace Hazel {
 		ImGuiKey imgui_key = ImGui_KeyToImGuiKey(e.GetKeyCode()); // keycode is the GLFW keycode
 		io.AddKeyEvent(imgui_key, GLFW_PRESS); // imgui_key is the scanecode, which is the ImGui keycode
 
-        // Test trail on UpdateKeyModifiers - {KeyCtrl, KeyShift, KeyAlt, KeySuper}
-        // -- These are modifier keys, triggering any one of them results in like the key itself being held down. Thus, one of them being triggered results 
-        // -- in the key itself actually being triggered. Eg. if you press left_shift, shift is triggered, you don't need to toggle both. 
+        // These are modifier keys, triggering any one of them results in like the key itself being held down. Thus, one of them being triggered results 
+        // in the key itself actually being triggered. Eg. if you press left_shift, shift is triggered, you don't need to toggle both. 
         // !! m_GLFWwindow attribute has been added to my version of KeyPressedEvent class, contrary to Cherno's version, because there's no way to get 
 		// !! the modifier key's current state without using glfwGetKey() due to newer imGui version, and this method required pointer to the GLFWwindow object
-        GLFWwindow* window_pointer = (GLFWwindow*)e.GetGLFWwindow();
+        // && Update, window pointer has been redacted since EP19 due to newer updates.
+        GLFWwindow* window_pointer = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
         io.AddKeyEvent(ImGuiMod_Ctrl,  (glfwGetKey(window_pointer, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) || (glfwGetKey(window_pointer, GLFW_KEY_RIGHT_CONTROL) == GLFW_PRESS));
         io.AddKeyEvent(ImGuiMod_Shift, (glfwGetKey(window_pointer, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)   || (glfwGetKey(window_pointer, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS));
         io.AddKeyEvent(ImGuiMod_Alt,   (glfwGetKey(window_pointer, GLFW_KEY_LEFT_ALT) == GLFW_PRESS)     || (glfwGetKey(window_pointer, GLFW_KEY_RIGHT_ALT) == GLFW_PRESS));

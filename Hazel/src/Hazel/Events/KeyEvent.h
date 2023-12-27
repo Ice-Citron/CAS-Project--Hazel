@@ -28,15 +28,18 @@ namespace Hazel {
 
 	public:
 
-		KeyPressedEvent(int keyCode, int repeatCount, int* window)
-			: KeyEvent(keyCode), m_RepeatCount(repeatCount), m_GLFWwindow(window) //initialising superclass
+		KeyPressedEvent(int keyCode, int repeatCount)
+			: KeyEvent(keyCode), m_RepeatCount(repeatCount)
 		{}
 
 		inline int GetRepeatCount() const { return m_RepeatCount; }
 		
+		// Redacted - no longer needed
+		/*
 		// Added myself, getter method for m_GLFWwindow
 		// Have been casted to int, so that KeyEvent.h don't need to import glfw3.h
 		inline int* GetGLFWwindow() const { return m_GLFWwindow; } 
+		*/
 
 		std::string ToString() const override {
 			std::stringstream ss;
@@ -50,9 +53,12 @@ namespace Hazel {
 	private:
 
 		int m_RepeatCount;
+		// Redacted - no longer needed
+		/*
 		// This has been added myself, contrary to Cherno's version, because there's no way to get the modifier key's current 
 		// state without using glfwGetKey() due to newer imGui version, and this method required pointer to the GLFWwindow object
-		int* m_GLFWwindow;
+		// int* m_GLFWwindow;
+		*/
 	};
 
 
