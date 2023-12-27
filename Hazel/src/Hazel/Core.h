@@ -11,6 +11,10 @@
 	#error Hazel only supports Windows!
 #endif
 
+#ifdef HZ_DEBUG
+	#define HZ_ENABLE_ASSERTS
+#endif
+
 // "ASSERT" checks if the input is true (if it works out), and then it will output its __VA_ARGS__
 #ifdef HZ_ENABLE_ASSERTS
 	#define HZ_ASSERT(x, ...) { if(!(x)) { HZ_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
