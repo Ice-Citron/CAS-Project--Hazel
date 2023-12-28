@@ -26,10 +26,7 @@ namespace Hazel {
 	private:
 
 		std::vector<Layer*> m_Layers;
-
-		// "m_LayerInsert"  is an iterator that marks the position in the m_Layers vector where new layers (not overlays) should be inserted. 
-		// When the LayerStack is first constructed, m_LayerInsert is initialized to point to the beginning of the m_Layers vector.
-		std::vector<Layer*>::iterator m_LayerInsert;
+		unsigned int m_LayerInsertIndex = 0;
 	};
 }
 

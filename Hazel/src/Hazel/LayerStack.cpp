@@ -4,9 +4,7 @@
 
 namespace Hazel {
 
-	LayerStack::LayerStack() {
-		m_LayerInsert = m_Layers.begin();
-	}
+	LayerStack::LayerStack() {}
 
 	LayerStack::~LayerStack() {
 
@@ -17,10 +15,8 @@ namespace Hazel {
 
 	void LayerStack::PushLayer(Layer* layer) {
 
-		// Inserts a new element into the vector at a specified position provided by an iterator.
-		// CONSTRUCTS the element in - place within the vector at the position specified by the iterator, with the same 
-		// benefits of avoiding unnecessary copy or move.
-		m_LayerInsert = m_Layers.emplace(m_LayerInsert, layer);
+		m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
+		m_LayerInsertIndex++;
 	}
 
 	void LayerStack::PushOverlay(Layer* overlay) {
@@ -35,7 +31,7 @@ namespace Hazel {
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
 		if (it != m_Layers.end()) {
 			m_Layers.erase(it);
-			m_LayerInsert--;
+			m_LayerInsertIndex--;
 		}
 	}
 

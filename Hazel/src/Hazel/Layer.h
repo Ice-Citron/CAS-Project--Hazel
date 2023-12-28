@@ -16,6 +16,7 @@ namespace Hazel {
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate() {}
+		virtual void OnImGuiRender() {}
 		
 		// Each layer subclass' OnEvent function, overriden to tune to subclass' specific needs
 		virtual void OnEvent(Event& event) {} 
