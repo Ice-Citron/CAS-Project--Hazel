@@ -31,9 +31,10 @@ group ""
 
 project "Hazel"
 	location "Hazel"
-	kind "SharedLib" -- Hazel is a sharedlib, meaning its a dll file
+	kind "StaticLib" -- Hazel is a sharedlib, meaning its a dll file
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -46,6 +47,11 @@ project "Hazel"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
+	}
+
+	defines {
+		"_CRT_SECURE_NO_WARNINGS",
+		"_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING" -- experimental, to supress version deprecation warning. 
 	}
 
 	includedirs {
@@ -65,7 +71,6 @@ project "Hazel"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines {
@@ -74,31 +79,28 @@ project "Hazel"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands {
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		}
-	
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -106,6 +108,10 @@ project "Sandbox"
 	files {
 		"%{prj.name}/src/**.h", 
 		"%{prj.name}/src/**.cpp"
+	}
+
+	defines {
+		"_SILENCE_STDEXT_ARR_ITERS_DEPRECATION_WARNING" -- experimental, to supress version deprecation warning. 
 	}
 
 	includedirs {
@@ -120,25 +126,24 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
 		{
-			"HZ_PLATFORM_WINDOWS",
+			"HZ_PLATFORM_WINDOWS"
 		}
 	
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "HZ_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"

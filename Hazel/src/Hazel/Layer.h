@@ -37,5 +37,4 @@ namespace Hazel {
 
 -- Layer Class: This class represents a single layer. It includes methods for lifecycle events (attach, detach), updating, and event handling. 
    Developers can subclass this to create specific layers like a game layer or UI layer.
-
 */

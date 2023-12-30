@@ -27,13 +27,15 @@ namespace Hazel {
 		return state == GLFW_PRESS;
 	}
 
-	std::pair<float, float> WindowsInput::GetMousePositionImpl() const
-	{
+	std::pair<float, float> WindowsInput::GetMousePositionImpl() const {
 
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
-		return std::pair<float, float>(xpos, ypos);
+
+		// need to cast double, to substitute to float, to prevent warning 
+		// not sure why float returned instead of double yet
+		return std::pair<float, float>((float)xpos, (float)ypos);
 	}
 
 	float WindowsInput::GetMouseXImpl() const {
